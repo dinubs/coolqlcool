@@ -1,0 +1,38 @@
+{
+  "name": "coolqlcool",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ./client",
+    "lint:fix": "eslint --fix ./client",
+    "client": "webpack --watch",
+    "predeploy": "webpack",
+    "deploy": "now"
+  },
+  "dependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "cheerio": "^1.0.0-rc.1",
+    "express": "^4.15.3",
+    "express-graphql": "^0.6.6",
+    "express-route-stats": "^0.0.0",
+    "graphql": "^0.10.3",
+    "nightmare": "^2.10.0",
+    "node-fetch": "^1.7.1",
+    "nodemon": "^1.11.0",
+    "now": "^8.5.4",
+    "preact": "^8.2.6",
+    "preact-compat": "^3.17.0",
+    "styled-components": "^2.2.4",
+    "webpack": "^3.9.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.1.1",
+    "eslint-config-google": "^0.8.0"
+  }
+}
