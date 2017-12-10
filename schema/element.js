@@ -13,24 +13,16 @@ const resolve = (root, args) => root(args.elem);
 const element = new graphql.GraphQLObjectType({
   name: 'Element',
   fields: () => ({
-    /**
-     * Allows us to recursively grab
-     * child elements.
-     */
     select: {
-      type: element,
       args: recursiveArgs,
       description: 'Get an element from inside of this element',
       resolve: (root, args) => {
         const html = $(root).html();
         return resolve($.load(html), args);
       },
+      type: element,
     },
-    /**
-     * Returns the count of child elements.
-     */
     count: {
-      type: graphql.GraphQLInt,
       args: recursiveArgs,
       description: 'Get a count of provided elements',
       resolve: (root, args) => {
@@ -38,31 +30,32 @@ const element = new graphql.GraphQLObjectType({
         const elems = $.load(html)(args.elem);
         return elems.length;
       },
+      type: graphql.GraphQLInt,
     },
     classList: {
-      type: new graphql.GraphQLList(GraphQLString),
       description: 'Get a list of the classes on the given element',
       resolve: root => $(root).attr('class').split(' '),
+      type: new graphql.GraphQLList(GraphQLString),
     },
     class: {
-      type: GraphQLString,
       description: 'Get the class attribute on the given element',
       resolve: root => $(root).attr('class'),
+      type: GraphQLString,
     },
     text: {
-      type: GraphQLString,
       description: 'The inner text of the element',
       resolve: root => $(root).text(),
+      type: GraphQLString,
     },
     href: {
-      type: GraphQLString,
       description: 'Get the href of the element',
       resolve: root => $(root).attr('href'),
+      type: GraphQLString,
     },
     src: {
-      type: GraphQLString,
       description: 'Get the src of the element',
       resolve: root => $(root).attr('src'),
+      type: GraphQLString,
     },
     /**
      * Looks for data attribute on element,
@@ -71,7 +64,6 @@ const element = new graphql.GraphQLObjectType({
      * attribute.
      */
     data: {
-      type: GraphQLString,
       args: {
         name: {
           type: GraphQLString,
@@ -84,9 +76,9 @@ const element = new graphql.GraphQLObjectType({
         }
         return $(root).attr('data');
       },
+      type: GraphQLString,
     },
     attr: {
-      type: GraphQLString,
       args: {
         name: {
           type: GraphQLString,
@@ -94,12 +86,13 @@ const element = new graphql.GraphQLObjectType({
       },
       description: 'Get an attribute off of the element',
       resolve: (root, args) => $(root).attr(args.name),
+      type: GraphQLString,
     },
   }),
 });
 
 module.exports = {
-  type: element,
   args: recursiveArgs,
   resolve,
+  type: element,
 };

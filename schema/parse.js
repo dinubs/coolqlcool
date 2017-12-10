@@ -9,18 +9,19 @@ const site = new graphql.GraphQLObjectType({
   name: 'Site',
   fields: {
     select: {
-      type: new graphql.GraphQLList(element.type),
       args: element.args,
+      description: 'Grab a specific child element',
       resolve: element.resolve,
+      type: new graphql.GraphQLList(element.type),
     },
     count: {
-      type: graphql.GraphQLInt,
       args: element.args,
       description: 'Get a count of provided elements',
       resolve: (root, args) => {
         const elems = root(args.elem);
         return elems.length;
       },
+      type: graphql.GraphQLInt,
     },
   },
 });
@@ -29,20 +30,21 @@ module.exports = {
   type: site,
   args: {
     url: {
-      type: graphql.GraphQLString,
       description: 'URL to grab information from.',
+      type: graphql.GraphQLString,
     },
     html: {
+      description: 'Passed in HTML to query off of, can use this when you already have the HTMl and just want to query off of it.',
       type: graphql.GraphQLString,
     },
     wait: {
-      type: graphql.GraphQLInt,
       description: 'This will wait for JS to load onto the page before parsing, only works with passing URL.',
+      type: graphql.GraphQLInt,
     },
     waitForSelector: {
-      type: graphql.GraphQLString,
       description: `This will wait for a specific element to show on
       the page before starting to query, only works with passing URL.`,
+      type: graphql.GraphQLString,
     },
   },
   resolve: async (root, args) => {
@@ -54,6 +56,8 @@ module.exports = {
       throw new Error('expected URL argument to be present');
     }
 
+    // Use Nightmare to render the page and grab the document body when
+    //  `waitForSelected` or `wait` exist
     if (args.waitForSelected !== undefined || args.wait !== undefined) {
       return Nightmare()
         .goto(args.url)
