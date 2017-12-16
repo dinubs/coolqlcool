@@ -1,5 +1,7 @@
 import { h, render } from 'preact';
 import styled from 'styled-components';
+import Highlight from 'react-highlight';
+
 
 const App = styled.div`
   -moz-osx-font-smoothing: grayscale;
@@ -15,8 +17,31 @@ const App = styled.div`
   width: 100%;
 `;
 
+const CodeHeader = styled.div`
+  font-size: 1.2rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin: 48px 0 -22px;
+  text-transform: uppercase;
+`;
+
+const EXAMPLE_QUERY = `{
+  site(url: "https://news.ycombinator.com") {
+    titles: select(elem: "tr.athing") {
+      id: attr(name: "id")
+      numberOfLinks: count(elem: ".storylink")
+      link: select(elem: ".storylink") {
+        text
+        href
+        class
+        classList
+      }
+    }
+  }
+}`
+
 const Root = () =>
-  <App>
+  <App id="you-can-wait-for-this-with-graphql">
     <h1>Cool. CoolQLCool</h1>
     <p>CoolQLCool (CQC) is an open source Graph QL server that allows you to turn websites into a Graph QL api. It's pretty tubular (I'm incredibly biased tho).</p>
     <p>You can play around with it in <a href="./graphiql">graphiql</a>. Or take a gander at the source on <a href="https://github.com/dinubs/coolqlcool">Github</a>.</p>
@@ -42,6 +67,45 @@ const Root = () =>
       <li>Recursive fields, for example for pagination on Hacker News to go to a certain number of pages and query each one for the same fields.</li>
       <li>Field to return the output of javascript</li>
     </ul>
+    <h1>Examples</h1>
+    <CodeHeader>Curl</CodeHeader>
+    <Highlight className='bash'>
+      {`curl -X GET \
+-H "Content-Type: application/json" \
+-d '{"query": "${EXAMPLE_QUERY.replace(/\n/g, " ").replace(/\"/g, '\\"')}"}' \
+https://coolql.cool/graphql`}
+    </Highlight>
+
+    <CodeHeader>Javascript</CodeHeader>
+    <Highlight className='javascript'>
+      {`var xhr = new XMLHttpRequest();
+xhr.responseType = 'json';
+xhr.open('POST', 'https://coolql.cool/graphql');
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.setRequestHeader('Accept', 'application/json');
+xhr.onload = function () {
+  console.log('data returned:', xhr.response);
+}
+xhr.send(JSON.stringify({ query: \`${EXAMPLE_QUERY}\` }));`}
+    </Highlight>
+
+    <CodeHeader>Ruby</CodeHeader>
+    <Highlight className='ruby'>
+    {`require 'net/http'
+require 'uri'
+require 'json'
+
+uri = URI.parse("https://coolql.cool/graphql")
+
+header = {'Content-Type': 'application/json'}
+query = { query: '${EXAMPLE_QUERY}' }
+
+http = Net::HTTP.new(uri.host, uri.port)
+request = Net::HTTP::Post.new(uri.request_uri, header)
+request.body = query.to_json
+
+response = http.request(request)`}
+    </Highlight>
   </App>;
 
 const root = render(<Root />, document.getElementById('js--app'));

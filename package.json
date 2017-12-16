@@ -4,19 +4,23 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon ./index.js",
+    "start": "node ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint ./client",
     "lint:fix": "eslint --fix ./client",
     "client": "webpack --watch",
     "predeploy": "webpack",
-    "deploy": "now"
+    "deploy": "now && now alias www.coolql.cool && now alias cool.coolql.cool"
+  },
+  "now": {
+    "alias": "www.coolql.cool"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
+    "body-parser": "^1.18.2",
     "cheerio": "^1.0.0-rc.1",
     "express": "^4.15.3",
     "express-graphql": "^0.6.6",
@@ -28,6 +32,8 @@
     "now": "^8.5.4",
     "preact": "^8.2.6",
     "preact-compat": "^3.17.0",
+    "react-highlight": "^0.10.0",
+    "react-syntax-highlighter": "^6.1.1",
     "styled-components": "^2.2.4",
     "webpack": "^3.9.1"
   },

@@ -30,9 +30,12 @@ module.exports = {
           'es2015'
         ],
         plugins: [
-          ['transform-react-jsx', {
-            pragma: 'h'
-          }]
+          [
+            'transform-react-jsx',
+            {
+              pragma: 'h'
+            },
+          ],
         ]
       }
     }]

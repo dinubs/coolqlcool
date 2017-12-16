@@ -1,6 +1,7 @@
 const express = require('express');
 const graphql = require('graphql').graphql;
 const graphqlHTTP = require('express-graphql');
+var bodyParser = require('body-parser');
 
 const schema = require('./schema');
 const introspectionQuery = require('./introspection.graph.js');
@@ -14,8 +15,19 @@ app.use('/graphiql', graphqlHTTP({
   graphiql: true,
 }));
 
-app.get('/graphql', (req, res) => {
-  const graphqlQuery = req.query.query;
+// configure the app to use bodyParser()
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
+
+app.all('/graphql', (req, res) => {
+  let graphqlQuery = req.query.query;
+  console.log('ok', req.query.query, req.body);
+  if (req.body) {
+    graphqlQuery = req.body.query;
+  }
+
   if (!graphqlQuery) {
     return res.status(500).send('You must provide a query');
   }

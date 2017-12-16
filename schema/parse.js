@@ -38,7 +38,7 @@ module.exports = {
       type: graphql.GraphQLString,
     },
     wait: {
-      description: 'This will wait for JS to load onto the page before parsing, only works with passing URL.',
+      description: 'This will wait for a certain amount of time in milliseconds, only works with passing URL.',
       type: graphql.GraphQLInt,
     },
     waitForSelector: {
@@ -58,7 +58,7 @@ module.exports = {
 
     // Use Nightmare to render the page and grab the document body when
     //  `waitForSelected` or `wait` exist
-    if (args.waitForSelected !== undefined || args.wait !== undefined) {
+    if (args.waitForSelector !== undefined || args.wait !== undefined) {
       return Nightmare()
         .goto(args.url)
         .wait(args.waitForSelector || args.wait)
