@@ -12,9 +12,6 @@
     "predeploy": "webpack",
     "deploy": "now && now alias www.coolql.cool && now alias cool.coolql.cool"
   },
-  "now": {
-    "alias": "www.coolql.cool"
-  },
   "dependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
