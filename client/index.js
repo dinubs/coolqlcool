@@ -25,6 +25,13 @@ const CodeHeader = styled.div`
   text-transform: uppercase;
 `;
 
+const Small = styled.small`
+  display: block;
+  font-size: .8rem;
+  font-style: italic;
+  text-align: center;
+`;
+
 const EXAMPLE_QUERY = `{
   site(url: "https://news.ycombinator.com") {
     titles: select(elem: "tr.athing") {
@@ -106,6 +113,8 @@ request.body = query.to_json
 
 response = http.request(request)`}
     </Highlight>
+
+    <small>Made by Gavin</small>
   </App>;
 
 const root = render(<Root />, document.getElementById('js--app'));
