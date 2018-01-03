@@ -47,7 +47,7 @@ const EXAMPLE_QUERY = `{
   }
 }`
 
-const Root = () =>
+const Root = () => (
   <App id="you-can-wait-for-this-with-graphql">
     <h1>Cool. CoolQLCool</h1>
     <p>CoolQLCool (CQC) is an open source Graph QL server that allows you to turn websites into a Graph QL api. It's pretty tubular (I'm incredibly biased tho).</p>
@@ -115,6 +115,7 @@ response = http.request(request)`}
     </Highlight>
 
     <small>Made by Gavin</small>
-  </App>;
+  </App>
+);
 
 const root = render(<Root />, document.getElementById('js--app'));
