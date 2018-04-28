@@ -6,12 +6,9 @@
   "scripts": {
     "start": "node ./index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint ./client",
-    "lint:fix": "eslint --fix ./client",
     "client": "webpack --watch",
     "predeploy": "webpack",
-    "deploy": "now",
-    "postdeploy": "now alias set $(pbpaste) www.coolql.cool && now alias set $(pbpaste) cool.coolql.cool"
+    "deploy": "now"
   },
   "dependencies": {
     "babel-core": "^6.26.0",
