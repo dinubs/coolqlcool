@@ -1,7 +1,9 @@
 const graphql = require('graphql');
 const $ = require('cheerio');
 
-const { GraphQLString } = graphql;
+const {
+  GraphQLString
+} = graphql;
 const recursiveArgs = {
   elem: {
     type: GraphQLString,
@@ -39,8 +41,13 @@ const element = new graphql.GraphQLObjectType({
     },
     class: {
       description: 'Get the class attribute on the given element',
-      resolve: root => $(root).attr('class'),
-      type: GraphQLString,
+        resolve: root => $(root).attr('class'),
+        type: GraphQLString,
+    },
+    html: {
+      description: 'The inner html of the element',
+      resolve: root => $(root).html(),
+      type: GraphQLString
     },
     text: {
       description: 'The inner text of the element',
