@@ -12,6 +12,12 @@ const site = new graphql.GraphQLObjectType({
       args: element.args,
       description: 'Grab a specific child element',
       resolve: element.resolve,
+      type: element.type,
+    },
+    selectAll: {
+      args: element.args,
+      description: 'Grab all child elements of a tag',
+      resolve: element.resolve,
       type: new graphql.GraphQLList(element.type),
     },
     count: {
@@ -49,7 +55,9 @@ module.exports = {
   },
   resolve: async (root, args) => {
     if (args.html && args.html.trim() !== '') {
-      return cheerio.load(args.html);
+      return cheerio.load(args.html, {
+        xmlMode: true
+      });
     }
 
     if (args.url === undefined) {
@@ -57,7 +65,7 @@ module.exports = {
     }
 
     // Use Nightmare to render the page and grab the document body when
-    //  `waitForSelected` or `wait` exist
+    //  `waitForSelector` or `wait` exist
     if (args.waitForSelector !== undefined || args.wait !== undefined) {
       return Nightmare()
         .goto(args.url)
@@ -67,7 +75,9 @@ module.exports = {
         })
         .end()
         .then((body) => {
-          return cheerio.load(body);
+          return cheerio.load(body, {
+            xmlMode: true
+          });
         })
         .catch(function (error) {
           throw new Error('Nightmare parsing failed', error);
@@ -76,6 +86,8 @@ module.exports = {
 
     return fetch(args.url)
       .then(res => res.text())
-      .then(body => cheerio.load(body));
+      .then(body => cheerio.load(body, {
+        xmlMode: true
+      }));
   },
 };

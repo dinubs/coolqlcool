@@ -33,7 +33,7 @@ const Small = styled.small`
 
 const EXAMPLE_QUERY = `{
   site(url: "https://news.ycombinator.com") {
-    titles: select(elem: "tr.athing") {
+    titles: selectAll(elem: "tr.athing") {
       id: attr(name: "id")
       numberOfLinks: count(elem: ".storylink")
       link: select(elem: ".storylink") {

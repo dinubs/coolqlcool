@@ -1,5 +1,6 @@
 const graphql = require('graphql');
 const $ = require('cheerio');
+const _ = require('underscore');
 
 const {
   GraphQLString
@@ -12,26 +13,33 @@ const recursiveArgs = {
 
 const resolve = (root, args) => root(args.elem);
 
+const selector = (root, args) => {
+  const html = $(root).html();
+  // Need XML Mode true so that all HTML works
+  return $.load(html, {
+    xmlMode: true
+  })(args.elem);
+}
+
 const element = new graphql.GraphQLObjectType({
   name: 'Element',
   fields: () => ({
     select: {
       args: recursiveArgs,
       description: 'Get an element from inside of this element',
-      resolve: (root, args) => {
-        const html = $(root).html();
-        return resolve($.load(html), args);
-      },
+      resolve: (root, args) => selector(root, args),
       type: element,
+    },
+    selectAll: {
+      args: recursiveArgs,
+      description: 'Get an element from inside of this element',
+      resolve: (root, args) => selector(root, args),
+      type: new graphql.GraphQLList(element),
     },
     count: {
       args: recursiveArgs,
       description: 'Get a count of provided elements',
-      resolve: (root, args) => {
-        const html = $(root).html();
-        const elems = $.load(html)(args.elem);
-        return elems.length;
-      },
+      resolve: (root, args) => selector(root, args).length,
       type: graphql.GraphQLInt,
     },
     classList: {
@@ -46,7 +54,10 @@ const element = new graphql.GraphQLObjectType({
     },
     html: {
       description: 'The inner html of the element',
-      resolve: root => $(root).html(),
+      resolve: root => {
+        console.log(root.length);
+        return $(root).html()
+      },
       type: GraphQLString
     },
     text: {
