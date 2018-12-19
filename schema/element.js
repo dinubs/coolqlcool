@@ -15,7 +15,8 @@ const resolve = (root, args) => root(args.elem);
 
 const selector = (root, args) => {
   const html = $(root).html();
-  // Need XML Mode true so that all HTML works
+  // Need XML Mode true so that all HTML works.
+  // e.g. Without it would not pase <tr><td>BLah</td></td> correctly
   return $.load(html, {
     xmlMode: true
   })(args.elem);

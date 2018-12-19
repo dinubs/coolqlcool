@@ -36,7 +36,7 @@ const EXAMPLE_QUERY = `{
     titles: selectAll(elem: "tr.athing") {
       id: attr(name: "id")
       numberOfLinks: count(elem: ".storylink")
-      link: select(elem: ".storylink") {
+      link: selectAll(elem: ".storylink") {
         text
         href
         class
@@ -52,7 +52,7 @@ const Root = () => (
     <p>CoolQLCool (CQC) is an open source Graph QL server that allows you to turn websites into a Graph QL api. It's pretty tubular (I'm incredibly biased tho).</p>
     <p>You can play around with it in <a href="./graphiql">graphiql</a>. Or take a gander at the source on <a href="https://github.com/dinubs/coolqlcool">Github</a>.</p>
     <h2>Example</h2>
-    <iframe src='./graphiql?query=%7B%0A%20%20hnews%3A%20site(url%3A%20"https%3A%2F%2Fnews.ycombinator.com")%20%7B%0A%20%20%20%20numberOfTitles%3A%20count(elem%3A%20"tr.athing")%0A%20%20%20%20titles%3A%20select(elem%3A%20"tr.athing")%20%7B%0A%20%20%20%20%20%20id%3A%20attr(name%3A%20"id")%0A%20%20%20%20%20%20numberOfLinks%3A%20count(elem%3A%20".storylink")%0A%20%20%20%20%20%20link%3A%20select(elem%3A%20".storylink")%20%7B%0A%20%20%20%20%20%20%20%20text%0A%20%20%20%20%20%20%20%20href%0A%20%20%20%20%20%20%20%20class%0A%20%20%20%20%20%20%20%20classList%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A' width="100%" height="400px"></iframe>
+    <iframe src='./graphiql?query=%7B%0A%20%20hnews%3A%20site(url%3A%20"https%3A%2F%2Fnews.ycombinator.com")%20%7B%0A%20%20%20%20numberOfTitles%3A%20count(elem%3A%20"tr.athing")%0A%20%20%20%20titles%3A%20selectAll(elem%3A%20"tr.athing")%20%7B%0A%20%20%20%20%20%20id%3A%20attr(name%3A%20"id")%0A%20%20%20%20%20%20numberOfLinks%3A%20count(elem%3A%20".storylink")%0A%20%20%20%20%20%20link%3A%20select(elem%3A%20".storylink")%20%7B%0A%20%20%20%20%20%20%20%20text%0A%20%20%20%20%20%20%20%20href%0A%20%20%20%20%20%20%20%20class%0A%20%20%20%20%20%20%20%20classList%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A' width="100%" height="400px"></iframe>
     <h2>Features</h2>
     <p>In order of how radical I think they are.</p>
     <ul>
