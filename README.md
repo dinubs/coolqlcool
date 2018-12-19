@@ -2,7 +2,7 @@
 
 [![Deploy to now](https://deploy.now.sh/static/button.svg)](https://deploy.now.sh/?repo=https://github.com/dinubs/coolqlcool)
 
-CoolQLCool (CQC) is an open source Graph QL server that allows you to turn websites into a Graph QL api. You can play around with it in [GraphiQL](https://cool.coolql.cool/graphiql).
+CoolQLCool (CQC) is an open source Graph QL server that allows you to turn websites into a Graph QL api. You can play around with it in [GraphiQL](https://coolql.cool/graphiql).
 
 Important pieces of code are in `schema/`. Inside of `schema/element.js` is the schema for grabbing element information from pages. Inside of `schema/parse.js` is the schema for specifying which site you want to query.
 
