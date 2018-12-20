@@ -52,6 +52,11 @@ module.exports = {
       the page before starting to query, only works with passing URL.`,
       type: graphql.GraphQLString,
     },
+    waitForFn: {
+      description: `This will wait for an evaluated function to return true
+      before starting to query, only works with passing URL.`,
+      type: graphql.GraphQLString,
+    },
   },
   resolve: async (root, args) => {
     if (args.html && args.html.trim() !== '') {
@@ -65,11 +70,12 @@ module.exports = {
     }
 
     // Use Nightmare to render the page and grab the document body when
-    //  `waitForSelector` or `wait` exist
-    if (args.waitForSelector !== undefined || args.wait !== undefined) {
+    //  `waitForSelector`, `waitForFn, or `wait` exist
+    if (args.waitForSelector !== undefined || args.wait !== undefined || args.waitForFn !== undefined) {
+      const wait = args.waitForSelector || args.wait || Function(`try { return ${args.waitForFn} } catch(e) {}`);
       return Nightmare()
         .goto(args.url)
-        .wait(args.waitForSelector || args.wait)
+        .wait(wait)
         .evaluate(() => {
           return document.body.innerHTML;
         })
