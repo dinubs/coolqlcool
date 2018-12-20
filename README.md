@@ -17,3 +17,10 @@ You can very quickly run your own CQC server using [Now](https://zeit.co/now). A
 The important bits are able to be ran with `npm start` this boots up an express server with endpoints `/graphql` for creating queries, and a `/graphiql` endpoint for help with building queries.
 
 To compile assets for the home page do `webpack --watch`.
+
+### Alternatives
+
+Here's some other applications and tools that also do similar things as CoolQLCool. They're all great:
+
+* [GDOM](https://github.com/syrusakbary/gdom) - DOM Traversing and Scraping using GraphQL
+* [GraphQL Scraper](https://github.com/lachenmayer/graphql-scraper) - Extract structured data from the web using GraphQL
