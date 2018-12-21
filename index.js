@@ -3,6 +3,7 @@ const graphql = require('graphql').graphql;
 const graphqlHTTP = require('express-graphql');
 var bodyParser = require('body-parser');
 const next = require('next')
+const cors = require('cors');
 
 const schema = require('./schema');
 
@@ -26,6 +27,9 @@ app.prepare()
       extended: true
     }));
     server.use(bodyParser.json());
+
+    // Enable CORS
+    server.use(cors());
 
     server.all('/graphql', (req, res) => {
       let graphqlQuery = req.query.query;
