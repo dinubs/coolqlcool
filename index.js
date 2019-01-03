@@ -42,8 +42,7 @@ app.prepare()
       }
 
       return graphql(schema, graphqlQuery)
-        .then(response => response.data)
-        .then(data => res.json(data))
+      .then(({ data, errors }) => res.json({ data, errors }))
         .catch(err => console.error(err)); // eslint-disable-line no-console
     });
 
