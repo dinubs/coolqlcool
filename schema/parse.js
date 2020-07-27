@@ -43,6 +43,10 @@ module.exports = {
       description: 'Passed in HTML to query off of, can use this when you already have the HTMl and just want to query off of it.',
       type: graphql.GraphQLString,
     },
+    headers: {
+      description: 'Headers to be passed along the fetch request to the website',
+      type: graphql.GraphQLString
+    },
     wait: {
       description: 'This will wait for a certain amount of time in milliseconds, only works with passing URL.',
       type: graphql.GraphQLInt,
@@ -90,7 +94,12 @@ module.exports = {
         });
     }
 
-    return fetch(args.url)
+    let options = {};
+    if (args.headers !== undefined) {
+      options.headers = JSON.parse(args.headers);
+    }
+
+    return fetch(args.url, options)
       .then(res => res.text())
       .then(body => cheerio.load(body, {
         xmlMode: true
