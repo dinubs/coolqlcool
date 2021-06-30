@@ -61,8 +61,16 @@ module.exports = {
       before starting to query, only works with passing URL.`,
       type: graphql.GraphQLString,
     },
+    input: {
+      description: `A elem-value set which would be inputted in the given page`,
+      type: new graphql.GraphQLList(graphql.GraphQLString),
+    },
+    submit: {
+      description: `A elem to click once the inputs are filled`,
+      type: graphql.GraphQLString
+    }
   },
-  resolve: async (root, args) => {
+  resolve: async (_root, args) => {
     if (args.html && args.html.trim() !== '') {
       return cheerio.load(args.html, {
         xmlMode: true
@@ -77,8 +85,16 @@ module.exports = {
     //  `waitForSelector`, `waitForFn, or `wait` exist
     if (args.waitForSelector !== undefined || args.wait !== undefined || args.waitForFn !== undefined) {
       const wait = args.waitForSelector || args.wait || Function(`try { return ${args.waitForFn} } catch(e) {}`);
-      return Nightmare()
-        .goto(args.url)
+      var page = Nightmare()
+        .goto(args.url);
+
+      if(args.input && args.submit) {
+        page = page
+        .type(...args.input)
+        .click(args.submit)
+      }
+
+      return page
         .wait(wait)
         .evaluate(() => {
           return document.body.innerHTML;
