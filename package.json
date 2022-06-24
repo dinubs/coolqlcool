@@ -23,7 +23,7 @@
     "graphql": "^0.10.3",
     "next": "^5.1.0",
     "nightmare": "^2.10.0",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "nodemon": "^1.11.0",
     "now": "^8.5.4",
     "preact": "^8.2.6",
