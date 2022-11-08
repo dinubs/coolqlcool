@@ -21,7 +21,7 @@
     "express-graphql": "^0.6.6",
     "express-route-stats": "^0.0.0",
     "graphql": "^0.10.3",
-    "next": "^5.1.0",
+    "next": "^13.0.2",
     "nightmare": "^2.10.0",
     "node-fetch": "^2.6.1",
     "nodemon": "^1.11.0",
