@@ -17,7 +17,7 @@
     "body-parser": "^1.18.2",
     "cheerio": "^1.0.0-rc.1",
     "cors": "^2.8.5",
-    "express": "^4.15.3",
+    "express": "^4.17.3",
     "express-graphql": "^0.6.6",
     "express-route-stats": "^0.0.0",
     "graphql": "^0.10.3",
